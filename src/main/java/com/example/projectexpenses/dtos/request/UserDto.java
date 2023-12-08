@@ -1,17 +1,20 @@
 package com.example.projectexpenses.dtos.request;
 
+import com.example.projectexpenses.model.Expenses;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class UserDto {
-    private int id;
 
-    @NotBlank
     private String name;
 
-    @NotBlank
     private String surname;
 
     private double salary;
+
 }

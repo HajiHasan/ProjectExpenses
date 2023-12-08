@@ -1,11 +1,16 @@
 package com.example.projectexpenses.dtos.request;
 
+import com.example.projectexpenses.model.Category;
+import com.example.projectexpenses.model.User;
 import lombok.Data;
 
 @Data
 public class ExpensesDto {
-    private int id;
+
+
     private double amount;
-    private int category_id;
-    private int user_id;
+
+    private UserDto user;
+
+    private CategoryDto category;
 }

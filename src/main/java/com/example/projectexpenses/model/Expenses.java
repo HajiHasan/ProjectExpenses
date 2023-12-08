@@ -1,7 +1,6 @@
 package com.example.projectexpenses.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,13 +14,16 @@ import lombok.NoArgsConstructor;
 public class Expenses {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private double amount;
+//deyisiklik nomre --- 1
+    @ManyToOne
+    private Category category;
 
-    private int category_id;
+    @ManyToOne
+    private User user;
 
-    private int user_id;
 
 
 }

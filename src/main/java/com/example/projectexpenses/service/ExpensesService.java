@@ -1,4 +1,13 @@
 package com.example.projectexpenses.service;
 
-public class ExpensesService {
+import com.example.projectexpenses.dtos.response.ExpensesResponse;
+
+import java.util.List;
+
+public interface ExpensesService {
+    void addExpenses();
+    ExpensesResponse getAllExpenses();
+
+
+
 }

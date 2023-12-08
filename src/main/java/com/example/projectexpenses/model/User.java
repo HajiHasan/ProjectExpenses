@@ -1,9 +1,12 @@
 package com.example.projectexpenses.model;
 
+import com.example.projectexpenses.dtos.request.ExpensesDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -23,6 +26,8 @@ public class User {
 
     private double salary;
 
-
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    private List<Expenses> expenses;
 
 }

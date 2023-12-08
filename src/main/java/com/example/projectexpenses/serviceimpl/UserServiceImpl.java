@@ -1,13 +1,14 @@
 package com.example.projectexpenses.serviceimpl;
+import java.util.*;
 
 import com.example.projectexpenses.dtos.request.UserDto;
 import com.example.projectexpenses.dtos.response.UserResponse;
 import com.example.projectexpenses.exception.ResourceNotFoundException;
+import com.example.projectexpenses.mapper.UserMapper;
 import com.example.projectexpenses.model.User;
 import com.example.projectexpenses.repository.UserRepository;
 import com.example.projectexpenses.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +19,11 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper mapper;
+
     @Override
     public void addUser(UserDto userDto) {
-      User user = new User();
-        BeanUtils.copyProperties(userDto, user);
-        userRepository.save(user);
+        userRepository.save(mapper.dtoToModel(userDto));
     }
 
     @Override
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(int id) {
        return userRepository.findById(id)
-               .map(this::convertToDto)
+               .map(mapper::modelToDto)
                .orElseThrow(()->new ResourceNotFoundException("Id not found"));
     }
 
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse getAllUsers() {
         List<UserDto> userDtoList =  userRepository.findAll()
                 .stream()
-                .map(this::convertToDto)
+                .map(mapper::modelToDto)
                 .toList();
         return getUserResponse(userDtoList);
 
@@ -54,7 +55,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse getUserWithMaxSalary(double salary) {
         List<UserDto> userDtoList = userRepository.getUserBySalaryOrderBySalaryDesc(salary)
                 .stream()
-                .map(this::convertToDto)
+                .map(mapper::modelToDto)
                 .collect(Collectors.toList());
         return getUserResponse(userDtoList);
     }
@@ -63,13 +64,8 @@ public class UserServiceImpl implements UserService {
     public UserResponse getUserWithMaxExpenses() {
         return null;
     }
-    private UserDto convertToDto(User user){
-        UserDto userDto = new UserDto();
-        BeanUtils.copyProperties(user,userDto);
-        return userDto;
 
-    }
-    private UserResponse getUserResponse(List<UserDto> userDtoList){
+    public static UserResponse getUserResponse(List<UserDto> userDtoList){
          return UserResponse.builder()
                  .users(userDtoList)
                  .build();
