@@ -13,20 +13,21 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserServiceImpl userService;
 
-    @Autowired
-    public UserController(UserServiceImpl userService) {
-        this.userService = userService;
-    }
-
     @PostMapping("/adduser")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addUser(@RequestBody UserDto userDto){
-        userService.addUser(userDto);
+    public void addUser(@RequestBody UserDto userDto) {
+        userService.registerUser(userDto);
     }
+    @PostMapping("/login")
+    public void loginUser(@RequestBody UserDto userDto){
+        userService.loginUser(userDto);
+    }
+
     @DeleteMapping("/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable int id){

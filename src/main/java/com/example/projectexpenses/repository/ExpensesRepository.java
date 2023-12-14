@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface ExpensesRepository extends JpaRepository<Expenses, Integer> {
 
+    List<Expenses> getExpensesByCategory_Id(long category_id);
+
 }

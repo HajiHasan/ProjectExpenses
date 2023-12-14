@@ -14,7 +14,10 @@ public class UserDto {
     private String name;
 
     private String surname;
-
+    private String email;
+    private String password;
+  //
+  //  private Boolean isActive;
     private double salary;
 
 }

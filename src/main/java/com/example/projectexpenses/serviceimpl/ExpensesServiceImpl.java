@@ -10,6 +10,7 @@ import com.example.projectexpenses.service.ExpensesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.ls.LSInput;
 
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class ExpensesServiceImpl implements ExpensesService {
     private final ExpensesRepository expensesRepository;
     private final ExpensesMapper mapper;
     @Override
-    public void addExpenses() {
+    public void addExpenses(ExpensesDto expensesDto) {
+        expensesRepository.save(mapper.dtoToModel(expensesDto));
 
     }
 
@@ -35,6 +37,16 @@ public class ExpensesServiceImpl implements ExpensesService {
 
     }
 
+    @Override
+    public ExpensesResponse getExpensesByCategoryId(long category_id) {
+         List<ExpensesDto> expensesDtoList = expensesRepository.getExpensesByCategory_Id(category_id)
+                 .stream()
+                 .map(mapper::modelToDto)
+                 .toList();
+         return ExpensesResponse.builder()
+                 .expenses(expensesDtoList)
+                 .build();
+    }
 
 
 }

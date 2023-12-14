@@ -14,5 +14,6 @@ import java.util.List;
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface ExpensesMapper {
     ExpensesDto modelToDto(Expenses expenses);
+    Expenses dtoToModel(ExpensesDto expensesDto);
 
 }

@@ -12,4 +12,5 @@ import java.util.List;
 public class UserResponse {
 
     private List<UserDto> users;
+
 }

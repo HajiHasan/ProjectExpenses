@@ -26,6 +26,13 @@ public class User {
 
     private double salary;
 
+    private String email;
+
+    private String password;
+
+//    @Column(name = "is_active")
+//    private boolean isActive = true;
+
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
     private List<Expenses> expenses;

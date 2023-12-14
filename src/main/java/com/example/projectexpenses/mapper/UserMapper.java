@@ -2,6 +2,7 @@ package com.example.projectexpenses.mapper;
 
 import com.example.projectexpenses.dtos.request.UserDto;
 import com.example.projectexpenses.model.User;
+import com.example.projectexpenses.security.MyUserDetails;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -9,5 +10,6 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
    UserDto modelToDto(User user);
    User dtoToModel(UserDto userDto);
+
 
 }
